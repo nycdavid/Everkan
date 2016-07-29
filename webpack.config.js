@@ -1,5 +1,8 @@
+'use strict';
+var glob = require('glob');
+
 module.exports = {
-  entry: './client/entry.js',
+  entry: glob.sync('./client/**/*.js'),
   output: {
     path: 'public/',
     filename: 'bundle.js'
