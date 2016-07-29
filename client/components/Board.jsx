@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from './Modal.jsx';
 require('../stylesheets/board.scss');
 
 class Board extends React.Component {
@@ -12,8 +13,9 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.addList}>Add List</button>
+      <div className="board">
+        <Modal />
+        <button className="btn btn-default" onClick={this.addList}>Add a list...</button>
       </div>
     );
   }

@@ -1,0 +1,21 @@
+.everkan-modal-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.everkan-modal {
+  &__content {
+    background-color: #fff;
+    padding-top: 18px;
+    padding-left: 18px;
+    border-radius: 4px;
+    height: 35%;
+    width: 35%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
