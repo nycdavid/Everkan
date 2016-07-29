@@ -1,22 +1,32 @@
 'use strict';
-var glob = require('glob');
+var webpack = require('webpack')
+  , path = require('path');
 
 module.exports = {
-  entry: glob.sync('./client/**/*.js'),
+  entry: [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    './client/index.js'
+  ],
   output: {
-    path: 'public/',
+    path: path.join(__dirname, 'public'),
+    publicPath: '/',
     filename: 'bundle.js'
   },
   module: {
     loaders: [
       { 
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
-          presets: ['es2015']
+          presets: ['es2015', 'react']
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 }
