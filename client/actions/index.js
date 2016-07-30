@@ -11,3 +11,9 @@ export function closeModal(name) {
 export function saveList(name) {
   return { type: 'SAVE_LIST', name: name };
 }
+
+// Card actions
+
+export function saveCardToList(name) {
+  return { type: 'SAVE_LIST_CARD', name: name };
+}

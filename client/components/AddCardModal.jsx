@@ -2,8 +2,8 @@ import React from 'react';
 import BaseModal from './BaseModal.jsx';
 
 class AddCardModal extends BaseModal {
-  render() {
-    this.markup = (
+  markup() {
+    return (
       <div>
         <form action="">
           <div>
@@ -16,8 +16,7 @@ class AddCardModal extends BaseModal {
           </div>
         </form>
       </div>
-    )
-    return this.outerMarkup();
+    );
   }
 }
 

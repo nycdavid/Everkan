@@ -12,7 +12,7 @@ class BaseModal extends React.Component {
         style={modalStyle}
       >
         <div className="everkan-modal__content">
-          {this.markup}
+          {this.markup()}
           <div onClick={this.props.onCloseModal} className="everkan-modal__close">X</div>
         </div>
       </div>
@@ -20,7 +20,7 @@ class BaseModal extends React.Component {
   }
 
   render() {
-    return null;
+    return this.outerMarkup();
   }
 }
 
