@@ -1,20 +1,22 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { openModal, closeModal } from '../actions';
+import { openModal, closeModal, saveList } from '../actions';
 import AddListModal from './AddListModal.jsx';
 import GetHelpModal from './GetHelpModal.jsx';
+import Lists from './Lists.jsx';
 
 require('../stylesheets/board.scss');
 
 class Board extends React.Component {
   render() {
-    const { modals, onOpenModal, onCloseModal } = this.props;
+    const { lists, modals, onOpenModal, onCloseModal, onSaveList } = this.props;
     return (
       <div className="board">
         <AddListModal 
           visible={getModalVisibility(modals, 'AddList')} 
           onCloseModal={() => { onCloseModal('AddList') }}
+          onSaveList={onSaveList}
         />
         <GetHelpModal
           visible={getModalVisibility(modals, 'GetHelp')}
@@ -32,20 +34,22 @@ class Board extends React.Component {
         >
           Get Help
         </button>
+        <Lists lists={lists} />
       </div>
     );
   }
 }
 
 function getModalVisibility(modals, name) {
-  console.log(modals);
   return _.find(modals, (modal) => modal.name === name)
     .visible;
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     modals: state.modals,
+    lists: state.lists,
   }
 }
 
@@ -56,6 +60,9 @@ function mapDispatchToProps(dispatch) {
     },
     onCloseModal: (modalName) => {
       dispatch(closeModal(modalName));
+    },
+    onSaveList: (listName) => {
+      dispatch(saveList(listName));
     },
   }
 }
