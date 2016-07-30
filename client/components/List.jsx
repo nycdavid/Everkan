@@ -1,19 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 require('../stylesheets/list.scss');
 
-const List = ({ name, index }) => {
-  const colStyle = {
-    left: `${index * 280 + (20 * index)}px`
+class List extends React.Component {
+  render() {
+    const colStyle = {
+      left: `${this.props.index * 280 + (20 * this.props.index)}px`
+    }
+
+    return (
+      <li 
+        className="list"
+        style={colStyle}
+      >
+        <p>{this.props.name}</p>
+        <button 
+          className="btn btn-default"
+          onClick={this.props.openAddCardModal}
+        >
+          Add card...
+        </button>
+      </li>
+    );
   }
-  return (
-    <li 
-      className="list"
-      style={colStyle}
-    >
-      {name}
-    </li>
-  );
 }
 
 export default List;

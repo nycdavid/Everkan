@@ -1,6 +1,6 @@
 // Modal actions
-export function openModal(name) {
-  return { type: 'OPEN_MODAL', name: name };
+export function openModal(name, options = {}) {
+  return { type: 'OPEN_MODAL', name: name, options };
 }
 
 export function closeModal(name) {

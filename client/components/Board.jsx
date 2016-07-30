@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { openModal, closeModal, saveList } from '../actions';
 import AddListModal from './AddListModal.jsx';
 import GetHelpModal from './GetHelpModal.jsx';
+import AddCardModal from './AddCardModal.jsx';
 import Lists from './Lists.jsx';
 
 require('../stylesheets/board.scss');
@@ -21,6 +22,11 @@ class Board extends React.Component {
         <GetHelpModal
           visible={getModalVisibility(modals, 'GetHelp')}
           onCloseModal={() => { onCloseModal('GetHelp') }}
+        />
+        <AddCardModal
+          visible={getModalVisibility(modals, 'AddCard')}
+          onCloseModal={() => { onCloseModal('AddCard') }}
+          options={getModalOptions(modals, 'AddCard')}
         />
         <button 
           className="btn btn-default" 
@@ -45,8 +51,13 @@ function getModalVisibility(modals, name) {
     .visible;
 }
 
+function getModalOptions(modals, name) {
+  const foo = _.find(modals, (modal) => modal.name === name)
+    .options;
+  return foo;
+}
+
 function mapStateToProps(state) {
-  console.log(state);
   return {
     modals: state.modals,
     lists: state.lists,

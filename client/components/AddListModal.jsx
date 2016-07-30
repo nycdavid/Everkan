@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import BaseModal from './BaseModal.jsx';
 
 require('../stylesheets/modal.scss');

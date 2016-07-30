@@ -3,6 +3,7 @@ import _ from 'lodash';
 const initialState = [
   { name: 'AddList', visible: false },
   { name: 'GetHelp', visible: false },
+  { name: 'AddCard', visible: false, options: { listName: '' } },
 ];
 
 export default function modals(state = initialState, action) {
@@ -10,7 +11,7 @@ export default function modals(state = initialState, action) {
     case 'OPEN_MODAL':
       return state.map(modal => (
         modal.name === action.name ?
-          Object.assign({}, modal, { visible: true }) :
+          Object.assign({}, modal, { visible: true, options: action.options }) :
           modal
       ));
     case 'CLOSE_MODAL':

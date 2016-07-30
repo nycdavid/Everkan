@@ -1,7 +1,7 @@
 const initialState = [
-  { name: 'Music Production' },
-  { name: 'Entrepreneurship' },
-  { name: 'Physical Fitness' },
+  { name: 'Music Production', cards: [] },
+  { name: 'Entrepreneurship', cards: [] },
+  { name: 'Physical Fitness', cards: [] },
 ];
 
 export default function lists(state = initialState, action) {

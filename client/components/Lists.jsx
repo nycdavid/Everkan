@@ -1,12 +1,45 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { openModal } from '../actions';
 import List from './List.jsx';
 
 require('../stylesheets/lists.scss');
 
-const Lists = ({ lists }) => (
-  <ul className="lists-container">
-    {lists.map((list, idx) => <List name={list.name} index={idx} key={`list-${idx}`} />)}
-  </ul>
-)
+class Lists extends React.Component {
+  render() {
+    const { lists, openModal } = this.props
+    return (
+      <ul className="lists-container">
+        {lists.map((list, idx) => (
+          <List 
+            name={list.name} 
+            index={idx} 
+            key={`list-${idx}`}
+            openAddCardModal={() => { openModal('AddCard', { listName: list.name }) }}
+          />
+        ))}
+      </ul>
+    );
+  }
+}
 
-export default Lists;
+function mapStateToProps(state) {
+  return {
+    lists: state.lists,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    openModal: function(modalName, options = {}) {
+      dispatch(openModal(modalName, options));
+    }
+  }
+}
+
+const ConnectedLists = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Lists);
+
+export default ConnectedLists;
