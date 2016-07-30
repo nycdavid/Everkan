@@ -1,8 +1,11 @@
 import React from 'react';
+import List from './List.jsx';
+
+require('../stylesheets/lists.scss');
 
 const Lists = ({ lists }) => (
-  <ul>
-    {lists.map((list, idx) => <li key={`list-name-${idx}`}>{list.name}</li>)}
+  <ul className="lists-container">
+    {lists.map((list, idx) => <List name={list.name} index={idx} key={`list-${idx}`} />)}
   </ul>
 )
 

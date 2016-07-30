@@ -1,4 +1,7 @@
 const initialState = [
+  { name: 'Music Production' },
+  { name: 'Entrepreneurship' },
+  { name: 'Physical Fitness' },
 ];
 
 export default function lists(state = initialState, action) {
