@@ -15,6 +15,9 @@ class List extends React.Component {
         style={colStyle}
       >
         <p>{this.props.name}</p>
+        <ul>
+          {this.props.cards.map((card, idx) => <li key={`list-card-${idx}`}>{card.name}</li>)}
+        </ul>
         <button 
           className="btn btn-default"
           onClick={this.props.openAddCardModal}
@@ -25,5 +28,7 @@ class List extends React.Component {
     );
   }
 }
+
+
 
 export default List;

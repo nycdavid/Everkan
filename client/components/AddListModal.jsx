@@ -7,10 +7,10 @@ class AddListModal extends BaseModal {
   markup() {
     let input;
     return (<div>
-      <form onSubmit={(e) => {
+      <form onSubmit={e => {
         e.preventDefault();
-        console.log('form submitted!')
         this.props.onSaveList(input.value);
+        input.value = '';
       }}>
       <div>
         <label htmlFor="list-name">List name:</label>

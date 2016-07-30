@@ -14,6 +14,6 @@ export function saveList(name) {
 
 // Card actions
 
-export function saveCardToList(name) {
-  return { type: 'SAVE_LIST_CARD', name: name };
+export function saveCardToList(name, listName) {
+  return { type: 'SAVE_LIST_CARD', name: name, listName: listName };
 }

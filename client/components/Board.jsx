@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { openModal, closeModal, saveList } from '../actions';
+import { openModal, closeModal, saveList, saveCardToList } from '../actions';
 import AddListModal from './AddListModal.jsx';
 import GetHelpModal from './GetHelpModal.jsx';
 import AddCardModal from './AddCardModal.jsx';
@@ -11,7 +11,7 @@ require('../stylesheets/board.scss');
 
 class Board extends React.Component {
   render() {
-    const { lists, modals, onOpenModal, onCloseModal, onSaveList } = this.props;
+    const { lists, modals, onOpenModal, onCloseModal, onSaveList, onSaveCardToList } = this.props;
     return (
       <div className="board">
         <AddListModal 
@@ -26,6 +26,7 @@ class Board extends React.Component {
         <AddCardModal
           visible={getModalVisibility(modals, 'AddCard')}
           onCloseModal={() => { onCloseModal('AddCard') }}
+          saveCardToList={onSaveCardToList}
           options={getModalOptions(modals, 'AddCard')}
         />
         <button 
@@ -75,6 +76,9 @@ function mapDispatchToProps(dispatch) {
     onSaveList: (listName) => {
       dispatch(saveList(listName));
     },
+    onSaveCardToList: (cardName, listName) => {
+      dispatch(saveCardToList(cardName, listName));
+    }
   }
 }
 

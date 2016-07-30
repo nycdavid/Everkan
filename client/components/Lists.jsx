@@ -13,6 +13,7 @@ class Lists extends React.Component {
         {lists.map((list, idx) => (
           <List 
             name={list.name} 
+            cards={list.cards}
             index={idx} 
             key={`list-${idx}`}
             openAddCardModal={() => { openModal('AddCard', { listName: list.name }) }}
