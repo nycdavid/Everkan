@@ -1,9 +1,6 @@
 import _ from 'lodash';
 
 const initialState = [
-  { name: 'AddList', visible: false },
-  { name: 'GetHelp', visible: false },
-  { name: 'AddCard', visible: false, options: { listName: '' } },
 ];
 
 export default function modals(state = initialState, action) {

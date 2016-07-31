@@ -1,19 +1,19 @@
 'use strict';
 
 // Modules
-var express = require('express')
-  , webpack = require('webpack')
-  , bodyParser = require('body-parser')
-  , mongoose = require('mongoose')
-  , webpackConfig = require('../webpack.config')
+require('babel-register')({
+  presets: ['react', 'es2015'],
+});
 
-var app = express()
-  , compiler = webpack(webpackConfig);
+import express from 'express';
+import webpack from 'webpack';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import webpackConfig from '../webpack.config';
 
-// DB configuration
-mongoose.connect('mongodb://127.0.0.1:27017/everkan_dev');
+const compiler = webpack(webpackConfig);
 
-// Server configuration
+const app = express()
 app.use(express.static('public')); // Look in the public folder for static files
 app.use(bodyParser.json());
 app.use(require('webpack-dev-middleware')(compiler, {
@@ -21,8 +21,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
   contentBase: './client'
 }));
 
-// Models
-var List = require('./models/List');
+mongoose.connect('mongodb://127.0.0.1:27017/everkan_dev');
+const List = require('./models/List');
 
 app.use(require('webpack-hot-middleware')(compiler, { 
   log: console.log,
@@ -30,8 +30,17 @@ app.use(require('webpack-hot-middleware')(compiler, {
   heartbeat: 10 * 1000
 }));
 
-app.get('/', function(req, res) {
-  res.send('Hello world!');
+app.get('/lists', function(req, res) {
+  List.find(function(err, lists) {
+    res.send(lists);
+  });
+});
+
+app.post('/lists', function(req, res) {
+  const list = new List({ name: req.body.name });
+  list.save(function(err, list) {
+    res.send(list); 
+  });
 });
 
 app.post('/lists', function(req, res) {
