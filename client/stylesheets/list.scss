@@ -1,7 +1,18 @@
 .list {
   background-color: #e2e4e6;
-  height: 100%;
   list-style-type: none;
-  width: 280px;
+  margin-top: 12px;
+  width: 300px;
+  padding-bottom: 18px;
   position: absolute;
+  border-radius: 4px;
+
+  &__name {
+    font-weight: bold;
+  }
+
+  &__center-container {
+    width: 90%;
+    margin: 12px auto 6px auto;
+  }
 }
