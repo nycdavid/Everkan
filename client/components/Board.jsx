@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { openModal, closeModal, saveList, saveCardToList } from '../actions';
 import AddListModal from './AddListModal.jsx';
@@ -74,7 +75,13 @@ function mapDispatchToProps(dispatch) {
       dispatch(closeModal(modalName));
     },
     onSaveList: (listName) => {
-      dispatch(saveList(listName));
+      axios.post('/lists', {
+        name: listName
+      }).then((response) => {
+        dispatch(saveList(response.data.name));
+      }).catch((error) => {
+        console.log('Error saving:', error);
+      });
     },
     onSaveCardToList: (cardName, listName) => {
       dispatch(saveCardToList(cardName, listName));

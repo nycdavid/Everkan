@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // Modal actions
 export function openModal(name, options = {}) {
   return { type: 'OPEN_MODAL', name: name, options };
@@ -13,7 +15,6 @@ export function saveList(name) {
 }
 
 // Card actions
-
 export function saveCardToList(name, listName) {
   return { type: 'SAVE_LIST_CARD', name: name, listName: listName };
 }
