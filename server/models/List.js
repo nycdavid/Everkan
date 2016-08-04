@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const listSchema = mongoose.Schema({
   name: String,
   cards: [],
 });
 
-module.exports = mongoose.model('List', listSchema);
+export default mongoose.model('List', listSchema);

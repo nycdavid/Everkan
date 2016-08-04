@@ -45,6 +45,9 @@
   },
   "dependencies": {
     "axios": "^0.13.1",
-    "body-parser": "^1.15.2"
+    "body-parser": "^1.15.2",
+    "mongoose-findorcreate": "^0.1.2",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0"
   }
 }

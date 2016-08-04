@@ -10,9 +10,25 @@ import webpack from 'webpack';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import webpackConfig from '../webpack.config';
+import passport from 'passport';
+import { OAuthStrategy as GoogleStrategy } from 'passport-google-oauth';
+
+// Passport setup
+passport.use(new GoogleStrategy({
+  consumerKey: '717689786379-emcfab27u4kaputt8m7onh418c71n4sh.apps.googleusercontent.com',
+  consumerSecret: 'kEFKWycrM93jS0HUvLPx7ADI',
+  callbackURL: 'http://localhost:3000/auth_redirect'
+}, (token, tokenSecret, profile, done) => {
+  User.findOrCreate({ 
+    name: profile.name, 
+    googleId: profile.id 
+  }, (err, user, created) => {
+    console.log(user); 
+    return done(err, user);
+  });
+}));
 
 const compiler = webpack(webpackConfig);
-
 const app = express()
 app.use(express.static('public')); // Look in the public folder for static files
 app.use(bodyParser.json());
@@ -30,16 +46,13 @@ app.use(require('webpack-hot-middleware')(compiler, {
   heartbeat: 10 * 1000
 }));
 
+app.get('/auth/google', passport.authenticate('google', { 
+  scope: [],
+}));
+
 app.get('/lists', function(req, res) {
   List.find(function(err, lists) {
     res.send(lists);
-  });
-});
-
-app.post('/lists', function(req, res) {
-  const list = new List({ name: req.body.name });
-  list.save(function(err, list) {
-    res.send(list); 
   });
 });
 
