@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseModal from './BaseModal.jsx';
 
-require('../stylesheets/modal.scss');
+require('../../stylesheets/modal.scss');
 
 class AddListModal extends BaseModal {
   markup() {

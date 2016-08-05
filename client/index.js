@@ -15,7 +15,7 @@ axios.get('/lists')
     const initialState = {
       modals: [
         { name: 'AddList', visible: false },
-        { name: 'GetHelp', visible: false },
+        { name: 'ViewCard', visible: false, options: { cardName: '' } },
         { name: 'AddCard', visible: false, options: { listName: '' } },
       ],
       lists: response.data.map((response) => (

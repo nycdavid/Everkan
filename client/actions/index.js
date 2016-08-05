@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 // Modal actions
 export function openModal(name, options = {}) {
   return { type: 'OPEN_MODAL', name: name, options };
@@ -7,6 +5,10 @@ export function openModal(name, options = {}) {
 
 export function closeModal(name) {
   return { type: 'CLOSE_MODAL', name: name };
+}
+
+export function closeAllModals() {
+  return { type: 'CLOSE_ALL_MODALS' };
 }
 
 // List actions

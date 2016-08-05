@@ -3,9 +3,9 @@ import _ from 'lodash';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { openModal, closeModal, saveList, updateList } from '../actions';
-import AddListModal from './AddListModal.jsx';
-import GetHelpModal from './GetHelpModal.jsx';
-import AddCardModal from './AddCardModal.jsx';
+import AddListModal from './modals/AddListModal.jsx';
+import AddCardModal from './modals/AddCardModal.jsx';
+import ViewCardModal from './modals/ViewCardModal.jsx';
 import Lists from './Lists.jsx';
 
 require('../stylesheets/board.scss');
@@ -20,27 +20,22 @@ class Board extends React.Component {
           onCloseModal={() => { onCloseModal('AddList') }}
           onSaveList={onSaveList}
         />
-        <GetHelpModal
-          visible={getModalVisibility(modals, 'GetHelp')}
-          onCloseModal={() => { onCloseModal('GetHelp') }}
-        />
         <AddCardModal
           visible={getModalVisibility(modals, 'AddCard')}
           onCloseModal={() => { onCloseModal('AddCard') }}
           saveCardToList={onSaveCardToList}
           options={getModalOptions(modals, 'AddCard')}
         />
+        <ViewCardModal
+          visible={getModalVisibility(modals, 'ViewCard')} 
+          onCloseModal={() => { onCloseModal('ViewCard') }}
+          options={getModalOptions(modals, 'ViewCard')}
+        />
         <button 
           className="btn btn-default" 
           onClick={() => { onOpenModal('AddList') }}
         >
           Add a list...
-        </button>
-        <button
-          className="btn btn-default"
-          onClick={() => { onOpenModal('GetHelp') }}
-        >
-          Get Help
         </button>
         <Lists lists={lists} />
       </div>

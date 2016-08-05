@@ -17,6 +17,8 @@ export default function modals(state = initialState, action) {
           Object.assign({}, modal, { visible: false }) :
           modal
       ));
+    case 'CLOSE_ALL_MODALS':
+      return state.map(modal => (Object.assign({}, modal, { visible: false })));
     default:
       return state;
   }

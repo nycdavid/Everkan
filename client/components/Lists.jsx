@@ -17,7 +17,6 @@ class Lists extends React.Component {
             listId={list.id}
             index={idx} 
             key={`list-${idx}`}
-            openAddCardModal={() => { openModal('AddCard', { listName: list.name, listId: list.id }) }}
           />
         ))}
       </ul>
