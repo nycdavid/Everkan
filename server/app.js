@@ -68,7 +68,8 @@ app.get('/auth/google', passport.authenticate('google', {
 
 app.get('/lists', function(req, res) {
   if (!req.user) { return res.redirect('/auth/google') };
-  List.find(function(err, lists) {
+  List.find({ userId: req.user._id }, (err, lists) => {
+    if (err) return res.status(500).send('Server problem...');
     res.send(lists);
   });
 });
@@ -93,7 +94,7 @@ app.get(
 );
 
 app.post('/lists', function(req, res) {
-  const list = new List({ name: req.body.name });
+  const list = new List({ name: req.body.name, userId: req.user._id });
   list.save(function(err, list) {
     res.send(list); 
   });
