@@ -14,9 +14,10 @@ class Lists extends React.Component {
           <List 
             name={list.name} 
             cards={list.cards}
+            listId={list.id}
             index={idx} 
             key={`list-${idx}`}
-            openAddCardModal={() => { openModal('AddCard', { listName: list.name }) }}
+            openAddCardModal={() => { openModal('AddCard', { listName: list.name, listId: list.id }) }}
           />
         ))}
       </ul>

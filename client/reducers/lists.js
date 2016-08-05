@@ -5,7 +5,7 @@ export default function lists(state = initialState, action) {
   switch(action.type) {
     case 'SAVE_LIST':
       return [
-        { name: action.name, cards: [] },
+        action.list,
         ...state
       ];
     case 'SAVE_LIST_CARD':

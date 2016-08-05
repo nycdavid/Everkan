@@ -10,7 +10,7 @@ class AddCardModal extends BaseModal {
         <form
           onSubmit={e => {
             e.preventDefault();
-            this.props.saveCardToList(input.value, this.props.options.listName);
+            this.props.saveCardToList(input.value, this.props.options.listId);
             input.value = '';
           }}
         >

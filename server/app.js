@@ -47,7 +47,7 @@ const compiler = webpack(webpackConfig);
 const app = express()
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(session({ secret: 'devsecret', cookie: { maxAge: 60000 } }));
+app.use(session({ secret: 'devsecret', cookie: { maxAge: 6 * 60 * 60 * 1000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public')); // Look in the public folder for static files

@@ -78,13 +78,17 @@ function mapDispatchToProps(dispatch) {
       axios.post('/lists', {
         name: listName
       }).then((response) => {
-        dispatch(saveList(response.data.name));
+        dispatch(saveList(response.data));
       }).catch((error) => {
         console.log('Error saving:', error);
       });
     },
-    onSaveCardToList: (cardName, listName) => {
-      dispatch(saveCardToList(cardName, listName));
+    onSaveCardToList: (cardName, listId) => {
+      axios.put(`/lists/${listId}`, {
+        cards: [{ name: cardName }],
+      }).then((response) => {
+        dispatch(updateList(response.data));
+      });
     }
   }
 }

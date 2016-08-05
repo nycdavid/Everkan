@@ -19,7 +19,7 @@ axios.get('/lists')
         { name: 'AddCard', visible: false, options: { listName: '' } },
       ],
       lists: response.data.map((response) => (
-        { name: response.name, cards: response.cards }
+        { id: response._id, name: response.name, cards: response.cards }
       )),
     }
     const store = createStore(rootReducer, initialState);

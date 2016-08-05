@@ -10,11 +10,11 @@ export function closeModal(name) {
 }
 
 // List actions
-export function saveList(name) {
-  return { type: 'SAVE_LIST', name: name };
+export function saveList(list) {
+  return { type: 'SAVE_LIST', list };
 }
 
 // Card actions
-export function saveCardToList(name, listName) {
-  return { type: 'SAVE_LIST_CARD', name: name, listName: listName };
+export function updateList(list) {
+  return { type: 'UPDATE_LIST', list }
 }
