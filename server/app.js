@@ -73,6 +73,17 @@ app.get('/lists', function(req, res) {
   });
 });
 
+app.put('/lists/:id', (req, res) => {
+  List.findById(req.params.id, (err, list) => {
+    const newCards = [...req.body.cards, ...list.cards];
+    list.cards = newCards;
+    list.save((err) => {
+      if (err) return res.status(500).send('Problem saving');
+      res.send(list);
+    });
+  });
+});
+
 app.get(
   '/auth_redirect',
   passport.authenticate('google', { falureRedirect: '/auth/google' }),

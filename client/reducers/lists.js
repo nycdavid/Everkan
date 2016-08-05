@@ -8,10 +8,10 @@ export default function lists(state = initialState, action) {
         action.list,
         ...state
       ];
-    case 'SAVE_LIST_CARD':
+    case 'UPDATE_LIST':
       return state.map(list => (
-        list.name === action.listName ?
-          Object.assign({}, list, { cards: [{ name: action.name }, ...list.cards] }) :
+        list.name === action.list.name ?
+          Object.assign({}, list, { cards: [{ name: action.list.cards[0].name }, ...list.cards] }) :
           list
       ));
     default:

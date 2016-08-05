@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { openModal, closeModal, saveList, saveCardToList } from '../actions';
+import { openModal, closeModal, saveList, updateList } from '../actions';
 import AddListModal from './AddListModal.jsx';
 import GetHelpModal from './GetHelpModal.jsx';
 import AddCardModal from './AddCardModal.jsx';
