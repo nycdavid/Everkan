@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import CloseModalControl from './CloseModalControl.jsx';
 
 class BaseModal extends React.Component {
   outerMarkup() {
@@ -7,13 +9,13 @@ class BaseModal extends React.Component {
     };
 
     return (
-      <div 
+      <div
         className="everkan-modal-overlay"
         style={modalStyle}
       >
-        <div className="everkan-modal__content">
+        <div className={`everkan-modal__content everkan-modal__content${this.classModifier()}`}>
           {this.markup()}
-          <div onClick={this.props.onCloseModal} className="everkan-modal__close">X</div>
+          <CloseModalControl modalName={this.modalName} />
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ export default function modals(state = initialState, action) {
   switch(action.type) {
     case 'OPEN_MODAL':
       return state.map(modal => (
-        modal.name === action.name ?
+        modal.name === action.options.name ?
           Object.assign({}, modal, { visible: true, options: action.options }) :
           modal
       ));

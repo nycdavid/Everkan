@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import rootReducer from './reducers';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
+import ListFacade from './facades/ListFacade';
 
 if (module.hot) {
   module.hot.accept();
@@ -15,18 +16,18 @@ axios.get('/lists')
     const initialState = {
       modals: [
         { name: 'AddList', visible: false },
-        { name: 'ViewCard', visible: false, options: { cardName: '' } },
-        { name: 'AddCard', visible: false, options: { listName: '' } },
+        { name: 'ViewCard', visible: false, options: { card: { name : '' } } },
+        { name: 'AddCard', visible: false, options: { list: { name: '' } } },
       ],
-      lists: response.data.map((response) => (
-        { id: response._id, name: response.name, cards: response.cards }
+      lists: response.data.map(list => (
+        new ListFacade(list)
       )),
     }
     const store = createStore(rootReducer, initialState);
     ReactDOM.render(
       <Provider store={store}>
-      <App />
+        <App />
       </Provider>,
       document.getElementById('app')
-    );   
+    );
   });

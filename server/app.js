@@ -13,11 +13,13 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import webpackConfig from '../webpack.config';
 import passport from 'passport';
+import _ from 'lodash';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 // Database config
 mongoose.connect('mongodb://127.0.0.1:27017/everkan_dev');
 import List from './models/List';
+import Card from './models/Card';
 import User from './models/User';
 
 // Passport setup
@@ -26,9 +28,9 @@ passport.use(new GoogleStrategy({
   clientSecret: 'kEFKWycrM93jS0HUvLPx7ADI',
   callbackURL: 'http://localhost:3000/auth_redirect'
 }, (accessToken, refreshToken, profile, done) => {
-  User.findOrCreate({ 
-    name: profile.displayName, 
-    googleId: profile.id 
+  User.findOrCreate({
+    name: profile.displayName,
+    googleId: profile.id
   }, (err, user) => {
     return done(err, user);
   });
@@ -55,14 +57,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: '/',
   contentBase: './client'
 }));
-app.use(require('webpack-hot-middleware')(compiler, { 
+app.use(require('webpack-hot-middleware')(compiler, {
   log: console.log,
   path: '/__webpack_hmr',
   heartbeat: 10 * 1000
 }));
 
 // Routes
-app.get('/auth/google', passport.authenticate('google', { 
+app.get('/auth/google', passport.authenticate('google', {
   scope: ['https://www.googleapis.com/auth/plus.login'],
 }));
 
@@ -76,11 +78,41 @@ app.get('/lists', function(req, res) {
 
 app.put('/lists/:id', (req, res) => {
   List.findById(req.params.id, (err, list) => {
-    const newCards = [...req.body.cards, ...list.cards];
-    list.cards = newCards;
-    list.save((err) => {
-      if (err) return res.status(500).send('Problem saving');
+    list.cards = req.body.cards;
+    list.save(err => {
+      if (err) return res.status(500).send('Problem updating...');
       res.send(list);
+    });
+  });
+});
+
+app.post('/lists/:id/cards', (req, res) => {
+  List.findById(req.params.id, (err, list) => {
+    if (err) return res.status(500).send('Problem finding list');
+    const card = new Card({ name: req.body.name });
+    list.cards.push(card);
+    list.save(err => {
+      if (err) return res.status(500).send('Problem creating...');
+      res.send(card)
+    });
+  });
+});
+
+app.put('/lists/:id/cards/:cardId', (req, res) => {
+  List.findById(req.params.id, (err, list) => {
+    const cards = _.compact(list.cards);
+    if (err) return res.status(500).send('Problem finding list');
+    const newCards = cards.map(card => {
+      return card._id.toString() === req.params.cardId ?
+        Object.assign({ _id: card._id }, req.body.card) :
+        card
+    });
+    list.cards = newCards;
+    list.save((err, updatedList) => {
+      if (err) return res.status(500).send('Problem updating list');
+      res.send(_.find(updatedList.cards, card => (
+        card._id.toString() === req.params.cardId
+      )));
     });
   });
 });
@@ -96,7 +128,7 @@ app.get(
 app.post('/lists', function(req, res) {
   const list = new List({ name: req.body.name, userId: req.user._id });
   list.save(function(err, list) {
-    res.send(list); 
+    res.send(list);
   });
 });
 

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
-const listSchema = mongoose.Schema({
+const List = mongoose.Schema({
   name: String,
-  cards: [],
+  cards: Array,
   userId: mongoose.Schema.ObjectId,
   content: String
 });
 
-export default mongoose.model('List', listSchema);
+export default mongoose.model('List', List);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "start": "babel-node --presets react,es2015 server/app.js"
   },
   "repository": {
@@ -48,6 +48,10 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express-session": "^1.14.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.2.0",
+    "karma-jasmine": "^1.0.2",
+    "moment": "^2.14.1",
     "mongoose-findorcreate": "^0.1.2",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0"

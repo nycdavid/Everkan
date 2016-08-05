@@ -1,46 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import modalDispatcher from '../dispatchers/modal';
+
+import Cards from './Cards.jsx';
+import masterDispatcher from '../dispatchers/map_dispatch_to_props';
 
 require('../stylesheets/list.scss');
-require('../stylesheets/cards.scss');
 
 class List extends React.Component {
   render() {
+    const { openModal } = this.props;
     const colStyle = {
       left: `${this.props.index * 280 + (40 * this.props.index)}px`
     }
-    const { openModal } = this.props;
 
     return (
-      <li 
+      <li
         className="list"
         style={colStyle}
       >
-        <p className="list__center-container list__name">{this.props.name}</p>
-        <ul className="cards">
-          {this.props.cards.map((card, idx) => (
-            <li 
-              className="cards__card" 
-              key={`list-card-${idx}`}
-              onClick={() => { 
-                openModal('ViewCard', {
-                  name: card.name
-                });
-              }}
-            >
-              {card.name}
-            </li>
-          ))}
-        </ul>
+        <p className="list__center-container list__name">{this.props.list.name}</p>
+        <Cards list={this.props.list} cards={this.props.list.cards} />
         <div className="list__center-container">
-          <button 
+          <button
             className="btn btn-default list__add-card"
             onClick={() => {
-              openModal('AddCard', {
-                listName: this.props.name,
-                listId: this.props.listId,
-              });
+              const list = this.props.list;
+              openModal({ name: 'AddCard', list });
             }}
           >
             Add card...
@@ -53,7 +38,7 @@ class List extends React.Component {
 
 const ConnectedList = connect(
   () => { return {} },
-  (dispatch) => { return modalDispatcher }
+  (dispatch) => { return masterDispatcher(dispatch) }
 )(List);
 
 export default ConnectedList;

@@ -19,6 +19,30 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    &--view-card {
+      width: 50%;
+      height: 90%;
+
+      .card-options {
+        float: right;
+        margin-right: 28px;
+
+        .date-option {
+          margin-left: 8px;
+          font-size: 24px;
+          cursor: pointer;
+        }
+
+        .save-date:hover {
+          color: #5bb75b;
+        }
+
+        .close-date-input:hover {
+          color: #da4f49;
+        }
+      }
+    }
   }
 
   &__close {
@@ -26,7 +50,13 @@
     border-radius: 20%;
     cursor: pointer;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
+
+    &:hover {
+      color: #da4f49;
+    }
   }
+
 }
