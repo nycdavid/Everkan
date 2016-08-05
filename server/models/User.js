@@ -6,4 +6,6 @@ const userSchema = mongoose.Schema({
   googleId: String
 });
 
+userSchema.plugin(findOrCreate);
+
 export default mongoose.model('User', userSchema);
