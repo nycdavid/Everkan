@@ -1,0 +1,4 @@
+{
+  "test": "mongodb://127.0.0.1:27017/everkan_test",
+  "dev": "mongodb://127.0.0.1:27017/everkan_dev"
+}

@@ -15,9 +15,14 @@ import webpackConfig from '../webpack.config';
 import passport from 'passport';
 import _ from 'lodash';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import database from '../config/database.json';
+
+// Controllers
+import ListsController from './controllers/ListsController';
+import ListCardsController from './controllers/ListCardsController';
 
 // Database config
-mongoose.connect('mongodb://127.0.0.1:27017/everkan_dev');
+mongoose.connect(database[process.env.NODE_ENV]);
 import List from './models/List';
 import Card from './models/Card';
 import User from './models/User';
@@ -53,69 +58,34 @@ app.use(session({ secret: 'devsecret', cookie: { maxAge: 6 * 60 * 60 * 1000 } })
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public')); // Look in the public folder for static files
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: '/',
-  contentBase: './client'
-}));
-app.use(require('webpack-hot-middleware')(compiler, {
-  log: console.log,
-  path: '/__webpack_hmr',
-  heartbeat: 10 * 1000
-}));
+if (process.env.NODE_ENV === 'dev') {
+  app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: '/',
+    contentBase: './client'
+  }));
+  app.use(require('webpack-hot-middleware')(compiler, {
+    log: console.log,
+    path: '/__webpack_hmr',
+    heartbeat: 10 * 1000
+  }));
+}
 
 // Routes
 app.get('/auth/google', passport.authenticate('google', {
   scope: ['https://www.googleapis.com/auth/plus.login'],
 }));
 
-app.get('/lists', function(req, res) {
-  if (!req.user) { return res.redirect('/auth/google') };
-  List.find({ userId: req.user._id }, (err, lists) => {
-    if (err) return res.status(500).send('Server problem...');
-    res.send(lists);
-  });
-});
+// Lists
+app.get('/lists', ListsController.Index);
+app.post('/lists', ListsController.Create);
+app.put('/lists/:id', ListsController.Update);
+app.delete('/lists/:id', ListsController.Delete);
 
-app.put('/lists/:id', (req, res) => {
-  List.findById(req.params.id, (err, list) => {
-    list.cards = req.body.cards;
-    list.save(err => {
-      if (err) return res.status(500).send('Problem updating...');
-      res.send(list);
-    });
-  });
-});
-
-app.post('/lists/:id/cards', (req, res) => {
-  List.findById(req.params.id, (err, list) => {
-    if (err) return res.status(500).send('Problem finding list');
-    const card = new Card({ name: req.body.name });
-    list.cards.push(card);
-    list.save(err => {
-      if (err) return res.status(500).send('Problem creating...');
-      res.send(card)
-    });
-  });
-});
-
-app.put('/lists/:id/cards/:cardId', (req, res) => {
-  List.findById(req.params.id, (err, list) => {
-    const cards = _.compact(list.cards);
-    if (err) return res.status(500).send('Problem finding list');
-    const newCards = cards.map(card => {
-      return card._id.toString() === req.params.cardId ?
-        Object.assign({ _id: card._id }, req.body.card) :
-        card
-    });
-    list.cards = newCards;
-    list.save((err, updatedList) => {
-      if (err) return res.status(500).send('Problem updating list');
-      res.send(_.find(updatedList.cards, card => (
-        card._id.toString() === req.params.cardId
-      )));
-    });
-  });
-});
+// ListCards
+app.get('/lists/:id/cards', ListCardsController.Index);
+app.post('/lists/:id/cards', ListCardsController.Create);
+app.put('/lists/:id/cards/:cardId', ListCardsController.Update);
+app.delete('/lists/:id/cards/:cardId', ListCardsController.Delete);
 
 app.get(
   '/auth_redirect',
@@ -125,13 +95,4 @@ app.get(
   }
 );
 
-app.post('/lists', function(req, res) {
-  const list = new List({ name: req.body.name, userId: req.user._id });
-  list.save(function(err, list) {
-    res.send(list);
-  });
-});
-
-app.listen(3000, function() {
-  console.log('Express server now listening on port 3000');
-});
+export default app;
