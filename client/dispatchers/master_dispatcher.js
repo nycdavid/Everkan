@@ -13,13 +13,12 @@ import {
 
 // Master Dispatcher
 export default (dispatch) => {
-  return function mapDispatchToProps(dispatch) {
+  return function masterDispatcher(dispatch) {
     return Object.assign(
       {},
       // Modal
       {
         openModal: (modalName, options = {}) => {
-          dispatch(closeAllModals());
           dispatch(openModal(modalName, options));
         },
         closeModal: (modalName) => {
@@ -34,8 +33,8 @@ export default (dispatch) => {
           }).then(response => {
             const list = new ListFacade(response.data);
             dispatch(saveList(list));
-            dispatch(closeAllModals());
-          }).catch(handleError);
+          })
+          .catch(handleError);
         },
         updateList: (id, list) => {
           axios.put(`/lists/${id}`, list)
@@ -50,21 +49,24 @@ export default (dispatch) => {
       {
         saveCard: (listId, cardName) => {
           axios.post(`/lists/${listId}/cards`, {
-            name: cardName,
+            card: { name: cardName },
           })
           .then(response => {
             const card = new CardFacade(response.data);
-            dispatch(closeAllModals());
             dispatch(saveListCard(listId, card));
-          });
+          })
+          .catch(handleError);
         },
         updateCard: (listId, cardObj) => {
           const card = new CardFacade(cardObj);
-          axios.put(`/lists/${listId}/cards/${cardObj.id}`, { card })
+          axios.put(`/lists/${listId}/cards/${cardObj.id}`,
+            { card }
+          )
           .then(response => {
             const card = new CardFacade(response.data);
             dispatch(updateListCard(listId, card));
-          });
+          })
+          .catch(handleError);
         }
       }
     )

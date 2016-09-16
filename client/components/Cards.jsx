@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import masterDispatcher from '../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../dispatchers/master_dispatcher';
 
 require('../stylesheets/cards.scss');
 

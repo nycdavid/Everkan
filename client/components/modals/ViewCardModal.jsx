@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import masterDispatcher from '../../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../../dispatchers/master_dispatcher';
 import _ from 'lodash';
 import BaseModal from './BaseModal.jsx';
 
@@ -35,7 +35,7 @@ class ViewCardModal extends BaseModal {
 
     return (
       <div>
-        <h1>{this.props.options.card.name}</h1>
+        <h1 className="card-name">{this.props.options.card.name}</h1>
         <h3>{calculateDaysLeft(this.props.options.card.dueDate)} days remaining.</h3>
         <ul className="card-options">
           <li>

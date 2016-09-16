@@ -1,8 +1,8 @@
 import React from 'react';
 import BaseModal from './BaseModal.jsx';
-import CloseModal from './CloseModalControl.jsx';
+import CloseModal from './CloseModal.jsx';
 import { connect } from 'react-redux';
-import mapDispatchToProps from '../../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../../dispatchers/master_dispatcher';
 
 require('../../stylesheets/modal.scss');
 
@@ -21,7 +21,9 @@ class AddListModal extends BaseModal {
     const { saveList } = this.props;
     return (
       <div>
-        <form onSubmit={e => {
+        <form
+          className="list-entry-form"
+          onSubmit={e => {
           e.preventDefault();
           saveList(input.value);
           input.value = '';
@@ -29,6 +31,7 @@ class AddListModal extends BaseModal {
           <div>
             <label htmlFor="list-name">List name:</label>
             <input
+              className="list-name-input"
               type="text"
               ref={node => (
                 input = node
@@ -38,7 +41,7 @@ class AddListModal extends BaseModal {
           <div>
             <button
               type="submit"
-              className="btn btn-default"
+              className="btn btn-default btn-save-list"
             >
               Save list
             </button>
@@ -51,6 +54,6 @@ class AddListModal extends BaseModal {
 }
 
 export default connect(
-  () => { return {} },
-  mapDispatchToProps()
+  () => ({}),
+  masterDispatcher()
 )(AddListModal);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import mapDispatchToProps from '../../dispatchers/map_dispatch_to_props';
 import AddListModal from './AddListModal.jsx';
 import AddCardModal from './AddCardModal.jsx';
 import ViewCardModal from './ViewCardModal.jsx';
+import masterDispatcher from '../../dispatchers/master_dispatcher';
 
 class ModalContainer extends React.Component {
   render() {
@@ -29,8 +29,11 @@ function getModal(modals, name) {
 }
 
 const ConnectedModalContainer = connect(
-  (state) => { return { modals: state.modals, lists: state.lists } },
-  mapDispatchToProps()
+  state => ({
+    modals: state.modals,
+    lists: state.lists
+  }),
+  masterDispatcher()
 )(ModalContainer);
 
 export default ConnectedModalContainer

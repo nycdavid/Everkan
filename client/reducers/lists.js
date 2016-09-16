@@ -14,7 +14,6 @@ export default function lists(state = initialState, action) {
           Object.assign({}, list, { cards: [action.card, ...list.cards] }) :
           list
       ));
-      return;
     case 'UPDATE_LIST':
       return state.map(list => (
         list.name === action.list.name ?

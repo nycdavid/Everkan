@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Cards from './Cards.jsx';
-import masterDispatcher from '../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../dispatchers/master_dispatcher';
 
 require('../stylesheets/list.scss');
 

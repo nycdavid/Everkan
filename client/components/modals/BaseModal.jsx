@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CloseModalControl from './CloseModalControl.jsx';
+import CloseModal from './CloseModal.jsx';
 
 class BaseModal extends React.Component {
   outerMarkup() {
@@ -15,7 +15,7 @@ class BaseModal extends React.Component {
       >
         <div className={`everkan-modal__content everkan-modal__content${this.classModifier()}`}>
           {this.markup()}
-          <CloseModalControl modalName={this.modalName} />
+          <CloseModal modalName={this.modalName} />
         </div>
       </div>
     );

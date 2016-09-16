@@ -8,7 +8,8 @@ module.exports = function(config) {
     basePath: '',
     browsers: [ 'PhantomJS' ],
     files: [
-      'tests/**/*.js'
+      './node_modules/babel-polyfill/dist/polyfill.js',
+      'tests/components/**/*.js'
     ],
     port: 8000,
     captureTimeout: 60000,
@@ -22,7 +23,7 @@ module.exports = function(config) {
     reporters: [ 'mocha' ],
     preprocessors: {
       'client/**/*.js': [ 'webpack', 'sourcemap' ],
-      'tests/**/*.js': [ 'webpack', 'sourcemap' ]
+      'tests/components/**/*.js': [ 'webpack', 'sourcemap' ]
     },
     webpack: {
       devtool: 'inline-source-map',

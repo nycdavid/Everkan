@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import mapDispatchToProps from '../../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../../dispatchers/master_dispatcher';
 
 class CloseModalControl extends React.Component {
   constructor(props) {
@@ -21,6 +21,6 @@ class CloseModalControl extends React.Component {
 }
 
 export default connect(
-  function() { return {}; },
-  mapDispatchToProps()
+  () => ({}),
+  masterDispatcher()
 )(CloseModalControl);

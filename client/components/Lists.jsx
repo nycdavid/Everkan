@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { openModal } from '../actions';
 import List from './List.jsx';
-import masterDispatcher from '../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../dispatchers/master_dispatcher';
 
 require('../stylesheets/lists.scss');
 

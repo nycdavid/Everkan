@@ -5,6 +5,10 @@ const initialState = [
 
 export default function modals(state = initialState, action) {
   switch(action.type) {
+    case 'SAVE_LIST':
+      return state.map(modal => (Object.assign({}, modal, { visible: false })));
+    case 'SAVE_LIST_CARD':
+      return state.map(modal => (Object.assign({}, modal, { visible: false })));
     case 'OPEN_MODAL':
       return state.map(modal => (
         modal.name === action.options.name ?

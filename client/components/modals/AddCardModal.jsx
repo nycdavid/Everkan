@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseModal from './BaseModal.jsx';
 import { connect } from 'react-redux';
-import mapDispatchToProps from '../../dispatchers/map_dispatch_to_props';
+import masterDispatcher from '../../dispatchers/master_dispatcher';
 
 class AddCardModal extends BaseModal {
   constructor(props) {
@@ -20,6 +20,7 @@ class AddCardModal extends BaseModal {
     return (
       <div>
         <form
+          className="card-entry-form"
           onSubmit={e => {
             e.preventDefault();
             const list = this.props.options.list;
@@ -31,6 +32,7 @@ class AddCardModal extends BaseModal {
             <h3>Add a card to {this.props.options.list.name}</h3>
             <label htmlFor="Card name">Card name:</label>
             <input
+              className="card-name-input"
               ref={node => {
                 input = node;
               }}
@@ -56,5 +58,5 @@ function getList(lists, id) {
 
 export default connect(
   function(state) { return { lists: state.lists } },
-  mapDispatchToProps()
+  masterDispatcher()
 )(AddCardModal);
