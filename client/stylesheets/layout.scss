@@ -5,6 +5,7 @@ h1, h2, h3, h4, h5, h6 {
 $lavender: #eaeaec;
 $cornflowerblue: #4697df;
 $slategray: #404a58;
+$whitesmoke: #f5f5f7;
 
 header {
   border-bottom: $lavender 1px solid;
@@ -43,5 +44,6 @@ header {
 }
 
 #app {
-  margin-top: 18px;
+  background-color: $whitesmoke;
+  font-family: 'Roboto', sans-serif;
 }

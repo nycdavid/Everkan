@@ -18,19 +18,17 @@ class List extends React.Component {
         className="list"
         style={colStyle}
       >
-        <p className="list__center-container list__name">{this.props.list.name}</p>
+        <h4 className="list__center-container list__name">{this.props.list.name}</h4>
         <Cards list={this.props.list} cards={this.props.list.cards} />
-        <div className="list__center-container">
-          <button
-            className="btn btn-default list__add-card"
-            onClick={() => {
-              const list = this.props.list;
-              openModal({ name: 'AddCard', list });
-            }}
-          >
-            Add card...
-          </button>
-        </div>
+        <button
+          className="btn btn-default list__add-card"
+          onClick={() => {
+            const list = this.props.list;
+            openModal({ name: 'AddCard', list });
+          }}
+        >
+          Add card...
+        </button>
       </li>
     );
   }

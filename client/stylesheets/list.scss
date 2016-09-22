@@ -1,18 +1,20 @@
 .list {
-  background-color: #e2e4e6;
   list-style-type: none;
   margin-top: 12px;
   width: 300px;
   padding-bottom: 18px;
   position: absolute;
-  border-radius: 4px;
 
   &__name {
     font-weight: bold;
+    padding-left: 27px;
   }
 
   &__center-container {
     width: 90%;
-    margin: 12px auto 6px auto;
+  }
+
+  .btn {
+    margin-left: 15px;
   }
 }
